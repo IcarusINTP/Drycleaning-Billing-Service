@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -13,20 +12,18 @@ public class BillItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String itemName;
 	private int quantity;
 	private double rate;
 	private double total;
 
 	@ManyToOne
-	@JoinColumn(name = "bill_id")
-	private Bill bill;
+	private Bill bill; // This will link each item to its parent Bill
 
-	// Default constructor
 	public BillItem() {
 	}
 
-	// Parameterized constructor
 	public BillItem(String itemName, int quantity, double rate, double total, Bill bill) {
 		this.itemName = itemName;
 		this.quantity = quantity;
@@ -36,6 +33,7 @@ public class BillItem {
 	}
 
 	// Getters and setters
+
 	public Long getId() {
 		return id;
 	}

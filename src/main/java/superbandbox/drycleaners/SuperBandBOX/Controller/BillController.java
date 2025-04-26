@@ -16,7 +16,6 @@ import superbandbox.drycleaners.SuperBandBOX.Models.ItemRequest;
 import superbandbox.drycleaners.SuperBandBOX.Services.BillingService;
 
 @CrossOrigin(origins = "http://localhost:3000")
-
 @RestController
 @RequestMapping("/api/bills")
 public class BillController {
@@ -34,7 +33,7 @@ public class BillController {
 	// Endpoint to get a bill by ID
 	@GetMapping("/{billId}")
 	public ResponseEntity<Bill> getBill(@PathVariable Long billId) {
-		Bill bill = billingService.getBillById(billId); // Call the service to get bill by ID
+		Bill bill = billingService.getBillById(billId);
 		if (bill != null) {
 			return new ResponseEntity<>(bill, HttpStatus.OK);
 		} else {

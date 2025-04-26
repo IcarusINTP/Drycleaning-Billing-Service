@@ -8,30 +8,42 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
 public class Bill {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	private Customer customer;
-
-	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
-	private List<BillItem> items;
-
+	private String customerName;
+	private String phone;
+	private String address;
 	private double totalAmount;
 	private double gst;
 	private double discount;
-	private LocalDate date;
+
+	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BillItem> items;
+
+	private LocalDate date; // Add the date field
 
 	public Bill() {
 	}
 
-	// Getter and Setter methods
+	public Bill(String customerName, String phone, String address, double totalAmount, double gst, double discount,
+			LocalDate date) {
+		this.customerName = customerName;
+		this.phone = phone;
+		this.address = address;
+		this.totalAmount = totalAmount;
+		this.gst = gst;
+		this.discount = discount;
+		this.date = date;
+	}
+
+	// Getters and setters
 	public Long getId() {
 		return id;
 	}
@@ -40,20 +52,28 @@ public class Bill {
 		this.id = id;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
-	public List<BillItem> getItems() {
-		return items;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setItems(List<BillItem> items) {
-		this.items = items;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public double getTotalAmount() {
@@ -80,11 +100,28 @@ public class Bill {
 		this.discount = discount;
 	}
 
+	public List<BillItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<BillItem> items) {
+		this.items = items;
+	}
+
 	public LocalDate getDate() {
 		return date;
 	}
 
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+	public void addItem(String itemName, int quantity, double rate, double total) {
+		BillItem billItem = new BillItem(itemName, quantity, rate, total, this);
+		items.add(billItem);
+	}
+
+	public void removeItem(BillItem billItem) {
+		items.remove(billItem);
 	}
 }

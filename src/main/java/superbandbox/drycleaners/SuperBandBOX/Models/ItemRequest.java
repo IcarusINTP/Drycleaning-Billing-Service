@@ -1,33 +1,27 @@
 package superbandbox.drycleaners.SuperBandBOX.Models;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ItemRequest {
 
-	private String name;
+	private String customerName;
 	private String phone;
 	private String address;
-	private List<String> items;
+	private Map<String, Integer> items = new HashMap<>(); // initialized to empty map
 
-	// Default constructor
 	public ItemRequest() {
+		// Default constructor
 	}
 
-	// Parameterized constructor
-	public ItemRequest(String name, String phone, String address, List<String> items) {
-		this.name = name;
-		this.phone = phone;
-		this.address = address;
-		this.items = items;
+	// Getters and Setters
+
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	// Getters and setters
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 	public String getPhone() {
@@ -46,11 +40,18 @@ public class ItemRequest {
 		this.address = address;
 	}
 
-	public List<String> getItems() {
+	public Map<String, Integer> getItems() {
+		if (items == null) {
+			items = new HashMap<>();
+		}
 		return items;
 	}
 
-	public void setItems(List<String> items) {
-		this.items = items;
+	public void setItems(Map<String, Integer> items) {
+		if (items == null) {
+			this.items = new HashMap<>();
+		} else {
+			this.items = items;
+		}
 	}
 }
