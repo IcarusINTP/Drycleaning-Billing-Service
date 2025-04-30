@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -15,24 +16,14 @@ public class BillItem {
 
 	private String itemName;
 	private int quantity;
-	private double rate;
-	private double total;
+	private double price;
 
 	@ManyToOne
-	private Bill bill; // This will link each item to its parent Bill
+	@JoinColumn(name = "bill_id")
+	private Bill bill;
 
 	public BillItem() {
 	}
-
-	public BillItem(String itemName, int quantity, double rate, double total, Bill bill) {
-		this.itemName = itemName;
-		this.quantity = quantity;
-		this.rate = rate;
-		this.total = total;
-		this.bill = bill;
-	}
-
-	// Getters and setters
 
 	public Long getId() {
 		return id;
@@ -58,20 +49,12 @@ public class BillItem {
 		this.quantity = quantity;
 	}
 
-	public double getRate() {
-		return rate;
+	public double getPrice() {
+		return price;
 	}
 
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	public Bill getBill() {
