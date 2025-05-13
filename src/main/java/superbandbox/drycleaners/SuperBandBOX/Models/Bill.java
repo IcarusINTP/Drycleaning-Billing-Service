@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,15 @@ public class Bill {
 	private Long id;
 
 	private String customerName;
-	private double totalAmount;
+	private String customerAddress;
+	private String customerContact;
+
+	@Column(name = "total_amount", nullable = false)
+	private double totalAmount = 0.0;
+
+	private boolean gst;
+	private double discount;
+
 	private LocalDate date;
 
 	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
@@ -43,12 +52,44 @@ public class Bill {
 		this.customerName = customerName;
 	}
 
+	public String getCustomerAddress() {
+		return customerAddress;
+	}
+
+	public void setCustomerAddress(String customerAddress) {
+		this.customerAddress = customerAddress;
+	}
+
+	public String getCustomerContact() {
+		return customerContact;
+	}
+
+	public void setCustomerContact(String customerContact) {
+		this.customerContact = customerContact;
+	}
+
 	public double getTotalAmount() {
 		return totalAmount;
 	}
 
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	public boolean isGst() {
+		return gst;
+	}
+
+	public void setGst(boolean gst) {
+		this.gst = gst;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 
 	public LocalDate getDate() {
